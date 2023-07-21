@@ -46,9 +46,9 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public Evento Get(int id)
+        public IEnumerable<Evento> Get(int id)
         {
-            return _evento.Where(x => x.EventoId == id).FirstOrDefault(); 
+            return _evento.Where(x => x.EventoId == id); 
         }
     }
 }
