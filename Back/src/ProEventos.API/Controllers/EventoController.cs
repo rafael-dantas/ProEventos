@@ -12,43 +12,22 @@ namespace ProEventos.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
-
-        public EventoController()
+        private readonly Data.DataContext _context;
+        public EventoController(Data.DataContext context)
         {
-            
-        }
-
-        IEnumerable<Evento> _evento = new Evento[]{
-            new Evento{
-                EventoId = 1,
-                Tema = "Angular 11 e .NET 5",
-                Local = "São Paulo",
-                Lote = "1º Lote",
-                QtdPessoas = 250,
-                DataEvento = new DateTime(2023, 8 , 15).ToString("dd/MM/yyyy"),
-                ImagemURL = "foto.png"
-            },
-            new Evento{
-                EventoId = 2,
-                Tema = "Angular 12 e .NET 7",
-                Local = "São Paulo",
-                Lote = "2º Lote",
-                QtdPessoas = 450,
-                DataEvento = new DateTime(2023, 9 , 15).ToString("dd/MM/yyyy"),
-                ImagemURL = "foto1.png"
-            }
-        };
+            _context = context;
+        }        
 
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            return _evento;
+            return _context.Eventos.ToList();
         }
 
         [HttpGet("{id}")]
         public IEnumerable<Evento> Get(int id)
         {
-            return _evento.Where(x => x.EventoId == id); 
+            return _context.Eventos.Where(x => x.EventoId == id).ToArray(); 
         }
     }
 }
